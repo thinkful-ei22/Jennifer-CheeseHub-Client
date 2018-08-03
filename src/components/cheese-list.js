@@ -1,24 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { fetchCheesesRequest } from '../actions/cheeseActions';
+import { fetchCheeses } from '../actions/cheeseActions';
 
 class CheeseList extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchCheesesRequest());
+    console.log('Component mounted');
+    this.props.dispatch(fetchCheeses());
   }
   render(){
     const cheeseItems=this.props.cheeses.map(cheese =>(<li>{cheese}</li>));    
     return(
       <ul>
-        {cheeseItems}  
+        {cheeseItems}
       </ul>
     );
   }}
 
-function mapStateToProps(state){
+const mapStateToProps = state =>{
   return {
     cheeses: state.cheeses
   };
-
-}
+};
 export default connect(mapStateToProps)(CheeseList);

@@ -1,3 +1,5 @@
+import API_BASE_URL from '../config';
+
 export const FETCH_CHEESES_REQUEST='FETCH_CHEESES_REQUEST';
 export const fetchCheesesRequest = () => ({
   type: FETCH_CHEESES_REQUEST
@@ -15,15 +17,18 @@ export const fetchCheesesError= error => ({
 
 export function fetchCheeses(){
   return function(dispatch){
+    console.log('Fetching cheeses...');
     dispatch(fetchCheesesRequest());
-    return fetch('/api/cheeses')
+    return fetch(`${API_BASE_URL}/api/cheeses`) //hardcoding local host is going to cause problems
       .then(res => {
         if(!res.ok) {
           return Promise.reject('Something went wrong');
         }
-        res.json();
+        return res.json();
       })
-      .then(data => dispatch(fetchCheesesSuccess(data)))
+      .then(data => {
+        dispatch(fetchCheesesSuccess(data));
+      })
       .catch(err => dispatch(fetchCheesesError(err)));
   };
 }
