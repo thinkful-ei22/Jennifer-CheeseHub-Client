@@ -19,7 +19,7 @@ export function fetchCheeses(){
   return function(dispatch){
     console.log('Fetching cheeses...');
     dispatch(fetchCheesesRequest());
-    return fetch(`${API_BASE_URL}/cheeses`) //hardcoding local host is going to cause problems
+    return fetch(`${API_BASE_URL}/api/cheeses`) //hardcoding local host is going to cause problems
       .then(res => {
         if(!res.ok) {
           return Promise.reject('Something went wrong');
